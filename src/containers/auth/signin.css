@@ -1,0 +1,40 @@
+.screen {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px #00000030;
+}
+
+.inputgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+  margin: 20px 24px 32px 24px;
+}
+
+h2.formTitle {
+  margin-bottom: 10px;
+  font-size: 32px;
+}
+
+.inputgroup .formText {
+  margin: 12px 0;
+  width: 100%;
+}
+
+.inputgroup button {
+  width: 100%;
+  margin-top: 10px;
+}
