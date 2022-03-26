@@ -50,6 +50,10 @@ const Signin = (props) => {
     navigate("/admin/dashboard");
   };
 
+  const keyDown = event => {
+    event.which === 13 && submitHandler();
+  }
+
   return (
     <div className="screen">
       <Box component="form" className="form">
@@ -73,6 +77,7 @@ const Signin = (props) => {
             className="formText"
             value={state.password}
             onChange={(e) => inputChangeHandler("password", e.target.value)}
+            onKeyDown={e => keyDown(e)}
           />
           <TextField
             required
