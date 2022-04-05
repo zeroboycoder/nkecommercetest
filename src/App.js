@@ -5,7 +5,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import theme from "./constant/theme";
 import Dashboard from "./containers/admin/dashboard/dashboard";
 import Signin from "./containers/auth/signin";
-import CreateStaff from './containers/admin/CreateStaff/CreateStaff'
+import CreateStaff from "./containers/admin/CreateStaff/CreateStaff";
+import Staff from "./containers/admin/Staff/Staff";
+import CreateProduct from "./containers/admin/CreateProduct/CreateProduct";
 import "./App.css";
 
 const App = () => {
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/create-staff" element={<CreateStaff />} />
+        <Route path="/admin/staffs" element={<Staff />} />
+        <Route path="/admin/create-product" element={<CreateProduct />} />
       </Routes>
     </ThemeProvider>
   );
