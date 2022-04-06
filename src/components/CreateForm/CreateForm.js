@@ -2,6 +2,11 @@ import React, { useReducer } from "react";
 import {
   Button,
   Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogContentText,
+  DialogActions,
+  DialogContent,
   Typography,
   FormGroup,
   FormControlLabel,
@@ -46,18 +51,25 @@ const reducer = (state, action) => {
   }
 };
 
-export const CreateForm = ({ headerText, formType, buttonText }) => {
+export const CreateForm = ({
+  showDialog,
+  headerText,
+  formType,
+  datas,
+  buttonText,
+  toggleDialog,
+}) => {
   const [state, dispatch] = useReducer(reducer, {
     // create staff
-    uname: "",
-    phno: "",
+    uname: datas ? datas.name : "",
+    phno: datas ? datas.phno : "",
     pword: "",
     permission: {
-      create: true,
-      update: false,
-      delete: false,
-      order: false,
-      all: false,
+      create: datas ? datas.permissions.create : true,
+      update: datas ? datas.permissions.update : false,
+      delete: datas ? datas.permissions.delete : false,
+      order: datas ? datas.permissions.order : false,
+      all: datas ? datas.permissions.all : false,
     },
     // create product
     category: "",
@@ -80,7 +92,7 @@ export const CreateForm = ({ headerText, formType, buttonText }) => {
   };
 
   const checkboxHandler = (label, value) => {
-    if (formType === "create_staff") {
+    if (formType === "create_staff" || formType === "edit_staff") {
       const updatePermission = { ...state.permission };
       if (label === "all") {
         for (const key in updatePermission) {
@@ -178,16 +190,18 @@ export const CreateForm = ({ headerText, formType, buttonText }) => {
           changed={inputChangeHandler}
         />
       </div>
-      <div className="CreateForm_inputGp">
-        <p>Password</p>
-        <Input
-          id="pword"
-          label="Password"
-          value={state.pword}
-          type="password"
-          changed={inputChangeHandler}
-        />
-      </div>
+      {formType !== "edit_staff" && (
+        <div className="CreateForm_inputGp">
+          <p>Password</p>
+          <Input
+            id="pword"
+            label="Password"
+            value={state.pword}
+            type="password"
+            changed={inputChangeHandler}
+          />
+        </div>
+      )}
       <div className="CreateForm_inputGp">
         <p>Permission</p>
         <FormGroup style={{ display: "flex", flexDirection: "row" }}>
@@ -219,6 +233,25 @@ export const CreateForm = ({ headerText, formType, buttonText }) => {
         </FormGroup>
       </div>
     </>
+  );
+
+  // Edit Staff Form
+  const editDialogForm = (
+    <Dialog open={true} onClose={toggleDialog}>
+      <DialogTitle>{headerText}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {CreateStaffForm}
+        </DialogContentText>
+      </DialogContent>
+
+      <DialogActions>
+        <Button onClick={toggleDialog}>Cancle</Button>
+        <Button onClick={toggleDialog} autoFocus>
+          Update
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 
   // Create Product Form
@@ -293,45 +326,54 @@ export const CreateForm = ({ headerText, formType, buttonText }) => {
   );
 
   return (
-    <div className="CreateForm">
-      {/* Form Title */}
-      <Typography variant="h3" className="CreateForm_title">
-        {headerText}
-      </Typography>
-      <form className="CreateForm_form">
-        {/* Form based on formType */}
-        {/* Create Staff */}
-        {formType === "create_staff" && CreateStaffForm}
+    <>
+      {formType === "edit_staff" && editDialogForm}
+      {formType !== "edit_staff" && (
+        <div className="CreateForm">
+          <form className="CreateForm_form">
+            {/* Form Title */}
+            <Typography variant="h3" className="CreateForm_title">
+              {headerText}
+            </Typography>
+            {/* Form based on formType */}
+            {/* Create Staff */}
+            {formType === "create_staff" && CreateStaffForm}
 
-        {/* Create Product */}
-        {formType === "create_product" && CreateProductForm}
+            {/* Create Product */}
+            {formType === "create_product" && CreateProductForm}
 
-        {/* Button */}
-        <div className="CreateForm_inputGp">
-          <p></p>
-          <FormGroup
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "215px",
-              justifyContent: "space-between",
-            }}
-          >
-            <Button variant="contained" color="error" onClick={cancleHandler}>
-              Cancle
-            </Button>
-            <Button
-              variant="contained"
-              color="info"
-              onClick={submitHandler}
-              disabled={!canClickCreate()}
-            >
-              Create
-            </Button>
-          </FormGroup>
+            {/* Button */}
+            <div className="CreateForm_inputGp">
+              <p></p>
+              <FormGroup
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "215px",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={cancleHandler}
+                >
+                  Cancle
+                </Button>
+                <Button
+                  variant="contained"
+                  color="info"
+                  onClick={submitHandler}
+                  disabled={!canClickCreate()}
+                >
+                  Create
+                </Button>
+              </FormGroup>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 };
 
