@@ -28,7 +28,7 @@
   }
   
   .CreateForm_title {
-    font-size: 42px;
+    font-size: 40px;
   }
   
   .CreateForm_inputGp {
@@ -43,12 +43,12 @@
   }
   
   @media screen and (max-width: 768px) {
-    .CreateForm_form {
+    .CreateForm_form, .CreateForm_productForm {
       width: 70%;
     }
   
     .CreateForm_title {
-      font-size: 38px;
+      font-size: 34px;
     }
   
     .CreateForm_inputGp {
@@ -67,12 +67,12 @@
   }
   
   @media screen and (max-width: 480px) {
-    .CreateForm_form {
+    .CreateForm_form, .CreateForm_productForm {
       width: 85%;
     }
   
     .CreateForm_title {
-      font-size: 32px;
+      font-size: 28px;
     }
   }
   
