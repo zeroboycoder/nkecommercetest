@@ -1,17 +1,30 @@
 .CreateForm {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100vh;
   }
   
   .CreateForm_form {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 600px;
+  }
+
+  .CreateForm_productForm{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    margin-top: 16px;
   }
   
   .CreateForm_title {

@@ -3,11 +3,11 @@ import { ThemeProvider } from "@mui/material";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import theme from "./constant/theme";
-import Dashboard from "./containers/admin/dashboard/dashboard";
-import Signin from "./containers/auth/signin";
-import CreateStaff from "./containers/admin/CreateStaff/CreateStaff";
-import Staff from "./containers/admin/Staff/Staff";
-import CreateProduct from "./containers/admin/CreateProduct/CreateProduct";
+import Dashboard from "./pages/admin/dashboard/dashboard";
+import Signin from "./pages/auth/signin";
+import CreateStaff from "./pages/admin/CreateStaff/CreateStaff";
+import Staff from "./pages/admin/Staff/Staff";
+import CreateProduct from "./pages/admin/CreateProduct/CreateProduct";
 import "./App.css";
 
 const App = () => {

@@ -330,7 +330,13 @@ export const CreateForm = ({
       {formType === "edit_staff" && editDialogForm}
       {formType !== "edit_staff" && (
         <div className="CreateForm">
-          <form className="CreateForm_form">
+          <form
+            className={
+              formType !== "create_product"
+                ? "CreateForm_form"
+                : "CreateForm_productForm"
+            }
+          >
             {/* Form Title */}
             <Typography variant="h3" className="CreateForm_title">
               {headerText}
@@ -358,7 +364,7 @@ export const CreateForm = ({
                   color="error"
                   onClick={cancleHandler}
                 >
-                  Cancle
+                  Clear
                 </Button>
                 <Button
                   variant="contained"
