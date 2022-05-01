@@ -2,6 +2,7 @@ import React, { useCallback, useReducer } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import "./signin.css";
 
@@ -45,14 +46,26 @@ const Signin = (props) => {
     return canClick;
   };
 
-  const submitHandler = () => {
-    Notify.success("Successful Sign in.");
-    navigate("/admin/dashboard");
+  const submitHandler = async () => {
+    try {
+      const data = {
+        UserName: "Admin01",
+        Password: "admin@123",
+      };
+      const res = await axios.post(
+        "https://ecommerceapi.nksoftwarehouse.com/Admin/Login",
+        data
+      );
+      const result = res.data;
+      console.log(result);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
-  const keyDown = event => {
+  const keyDown = (event) => {
     event.which === 13 && submitHandler();
-  }
+  };
 
   return (
     <div className="screen">
@@ -77,7 +90,7 @@ const Signin = (props) => {
             className="formText"
             value={state.password}
             onChange={(e) => inputChangeHandler("password", e.target.value)}
-            onKeyDown={e => keyDown(e)}
+            onKeyDown={(e) => keyDown(e)}
           />
           <TextField
             required
