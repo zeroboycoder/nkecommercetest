@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import theme from "./constant/theme";
 import Dashboard from "./pages/admin/dashboard/dashboard";
-import Signin from "./pages/auth/signin";
+import Signin from "./pages/auth/Signin";
 import CreateStaff from "./pages/admin/CreateStaff/CreateStaff";
 import Staff from "./pages/admin/Staff/Staff";
 import CreateProduct from "./pages/admin/CreateProduct/CreateProduct";

@@ -2,8 +2,9 @@ import React, { useCallback, useReducer } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 
+import { onLogin } from "../../redux/action/auth";
 import "./signin.css";
 
 const reducer = (state, action) => {
@@ -20,6 +21,7 @@ const reducer = (state, action) => {
 
 const Signin = (props) => {
   const navigate = useNavigate();
+  const reduxDispatch = useDispatch();
   const [state, dispatch] = useReducer(reducer, {
     uname: "",
     password: "",
@@ -52,12 +54,9 @@ const Signin = (props) => {
         UserName: "Admin01",
         Password: "admin@123",
       };
-      const res = await axios.post(
-        "https://ecommerceapi.nksoftwarehouse.com/Admin/Login",
-        data
-      );
-      const result = res.data;
-      console.log(result);
+      reduxDispatch(onLogin(data));
+      Notify.success("Successful login");
+      navigate("/admin/dashboard");
     } catch (error) {
       throw new Error(error);
     }
