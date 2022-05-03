@@ -11,6 +11,7 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import Input from "../Input/Input";
 import "./CreateForm.css";
@@ -59,6 +60,7 @@ export const CreateForm = ({
   buttonText,
   toggleDialog,
 }) => {
+  const user = useSelector((store) => store.auth.user);
   const [state, dispatch] = useReducer(reducer, {
     // create staff
     uname: datas ? datas.name : "",
@@ -266,15 +268,17 @@ export const CreateForm = ({
           changed={inputChangeHandler}
         />
       </div>
-      <div className="CreateForm_inputGp">
-        <p>Sub-Category</p>
-        <Input
-          id="subCategory"
-          label="Sub-Category"
-          value={state.subCategory}
-          changed={inputChangeHandler}
-        />
-      </div>
+      {user.BusinessName !== "Nyein" ? (
+        <div className="CreateForm_inputGp">
+          <p>Sub-Category</p>
+          <Input
+            id="subCategory"
+            label="Sub-Category"
+            value={state.subCategory}
+            changed={inputChangeHandler}
+          />
+        </div>
+      ) : null}
       <div className="CreateForm_inputGp">
         <p>Product Title</p>
         <Input

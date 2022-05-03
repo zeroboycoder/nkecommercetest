@@ -1,17 +1,34 @@
-import { Typography } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+import Staff from "../Staff/Staff";
+import CreateProduct from "../CreateProduct/CreateProduct";
 import BottomNav from "../../../components/BottomNav/BottomNav";
 import "./dashboard.css";
 
 const Dashboard = () => {
+  const [currentNav, setCurrentNav] = useState(0);
+
+  const bottomNavHandler = (value) => {
+    setCurrentNav(value);
+  };
+
+  const App = () => {
+    switch (currentNav) {
+      case 0:
+        return <Staff />;
+      case 1:
+        console.log("incoming value", currentNav);
+        return <CreateProduct />;
+      default:
+        return <Staff />;
+    }
+  };
+
   return (
     <div className="dashboardScreen">
-      <Typography variant="h2" className="adminTitle" color="primary">
-        Admin Dashboard
-      </Typography>
+      <App />
       <div className="bottonNavContainer">
-        <BottomNav />
+        <BottomNav clicked={bottomNavHandler} />
       </div>
     </div>
   );

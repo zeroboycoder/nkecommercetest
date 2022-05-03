@@ -6,7 +6,6 @@ import theme from "./constant/theme";
 import Dashboard from "./pages/admin/dashboard/dashboard";
 import Signin from "./pages/auth/Signin";
 import CreateStaff from "./pages/admin/CreateStaff/CreateStaff";
-import Staff from "./pages/admin/Staff/Staff";
 import CreateProduct from "./pages/admin/CreateProduct/CreateProduct";
 import "./App.css";
 
@@ -18,7 +17,6 @@ const App = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/create-staff" element={<CreateStaff />} />
-        <Route path="/admin/staffs" element={<Staff />} />
         <Route path="/admin/create-product" element={<CreateProduct />} />
       </Routes>
     </ThemeProvider>

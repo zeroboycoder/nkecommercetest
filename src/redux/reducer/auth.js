@@ -1,7 +1,7 @@
 import { LOGIN } from "../action/auth";
 
 const initState = {
-  data: {},
+  user: {},
 };
 
 export default (state = initState, action) => {
@@ -9,7 +9,7 @@ export default (state = initState, action) => {
     case LOGIN:
       console.log("Datas : ", action.data);
       return {
-        data: action.data,
+        user: action.data,
       };
     default:
       return state;

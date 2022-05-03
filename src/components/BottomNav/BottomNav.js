@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import "./BottomNav.css";
 
-const BottomNav = () => {
+const BottomNav = (props) => {
   const [value, setValue] = React.useState(0);
 
   return (
@@ -20,6 +20,7 @@ const BottomNav = () => {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
+          props.clicked(newValue);
         }}
         style={{
           display: "flex",
