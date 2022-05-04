@@ -9,6 +9,7 @@ export default (state = initState, action) => {
     case LOGIN:
       localStorage.setItem("bname", action.data.BusinessName);
       localStorage.setItem("token", action.data.Token);
+      localStorage.setItem("color", action.data.ColorCode);
       return {
         user: action.data,
       };

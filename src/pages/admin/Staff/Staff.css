@@ -5,3 +5,16 @@
 .staff_deleteIcon{
     color: #C82929;
 }
+
+.staff_addIcon {
+    position: absolute;
+    bottom: 70px;
+    right: 50px;
+    background-color: #c864da;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.staff_addIcon .css-mm42gz-MuiButtonBase-root-MuiFab-root:hover {
+    background-color: #AB47BC;
+}

@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import MUIDataTable from "mui-datatables";
-import { IconButton, Button } from "@mui/material";
-import { ModeEditOutline, DeleteOutline } from "@mui/icons-material";
+import { useNavigate } from "react-router";
+import { IconButton, Fab } from "@mui/material";
+import { ModeEditOutline, DeleteOutline, Add } from "@mui/icons-material";
 
 import "./Staff.css";
 import CreateForm from "../../../components/CreateForm/CreateForm";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const Staff = () => {
+  const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [name, setName] = useState();
   const [phno, setPhno] = useState();
   const [permissions, setPermissions] = useState();
+  const [loading, setLoading] = useState(false);
 
   const toggleHandler = () => {
     setShowDialog((currentState) => !currentState);
@@ -91,27 +96,39 @@ const Staff = () => {
     ],
   ];
 
-  return (
-    <div>
-      {showDialog && (
-        <CreateForm
-          formType="edit_staff"
-          headerText="Edit Staff"
-          datas={{ name, phno, permissions }}
-          showDialog={showDialog}
-          toggleDialog={toggleHandler}
+  let app = <Spinner />;
+  if (!loading) {
+    app = (
+      <>
+        {showDialog && (
+          <CreateForm
+            formType="edit_staff"
+            headerText="Edit Staff"
+            datas={{ name, phno, permissions }}
+            showDialog={showDialog}
+            toggleDialog={toggleHandler}
+          />
+        )}
+        <MUIDataTable
+          title={"Staffs"}
+          data={data}
+          columns={columns}
+          options={{
+            onRowClick: editHandler,
+          }}
         />
-      )}
-      <MUIDataTable
-        title={"Staffs"}
-        data={data}
-        columns={columns}
-        options={{
-          onRowClick: editHandler,
-        }}
-      />
-    </div>
-  );
+        <div
+          className="staff_addIcon"
+          onClick={() => navigate("/admin/create-staff")}
+        >
+          <Fab aria-label="add">
+            <Add />
+          </Fab>
+        </div>
+      </>
+    );
+  }
+  return app;
 };
 
 export default Staff;
