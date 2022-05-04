@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
-import { IconButton } from "@mui/material";
+import { IconButton, Button } from "@mui/material";
 import { ModeEditOutline, DeleteOutline } from "@mui/icons-material";
 
 import "./Staff.css";

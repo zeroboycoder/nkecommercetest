@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import Staff from "../Staff/Staff";
-import CreateProduct from "../CreateProduct/CreateProduct";
 import BottomNav from "../../../components/BottomNav/BottomNav";
 import "./dashboard.css";
 
@@ -14,13 +13,11 @@ const Dashboard = () => {
 
   const App = () => {
     switch (currentNav) {
-      case 0:
-        return <Staff />;
       case 1:
         console.log("incoming value", currentNav);
-        return <CreateProduct />;
-      default:
         return <Staff />;
+      default:
+        return null;
     }
   };
 

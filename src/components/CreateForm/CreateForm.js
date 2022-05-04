@@ -60,7 +60,8 @@ export const CreateForm = ({
   buttonText,
   toggleDialog,
 }) => {
-  const user = useSelector((store) => store.auth.user);
+  // const user = useSelector((store) => store.auth.user);
+  const bname = localStorage.getItem("bname");
   const [state, dispatch] = useReducer(reducer, {
     // create staff
     uname: datas ? datas.name : "",
@@ -268,7 +269,7 @@ export const CreateForm = ({
           changed={inputChangeHandler}
         />
       </div>
-      {user.BusinessName !== "Nyein" ? (
+      {bname !== "Nyein" ? (
         <div className="CreateForm_inputGp">
           <p>Sub-Category</p>
           <Input
