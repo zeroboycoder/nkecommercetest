@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Staff from "../Staff/Staff";
+import CreateProduct from "../CreateProduct/CreateProduct";
 import BottomNav from "../../../components/BottomNav/BottomNav";
 import "./dashboard.css";
 
@@ -16,6 +17,8 @@ const Dashboard = () => {
       case 1:
         console.log("incoming value", currentNav);
         return <Staff />;
+      case 2:
+        return <CreateProduct />;
       default:
         return null;
     }

@@ -1,21 +1,51 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MUIDataTable from "mui-datatables";
-import { useNavigate } from "react-router";
 import { IconButton, Fab } from "@mui/material";
-import { ModeEditOutline, DeleteOutline, Add } from "@mui/icons-material";
+import {
+  ModeEditOutline,
+  DeleteOutline,
+  Add,
+  Close,
+} from "@mui/icons-material";
+import { Notify } from "notiflix";
 
 import "./Staff.css";
 import CreateForm from "../../../components/CreateForm/CreateForm";
 import Spinner from "../../../components/Spinner/Spinner";
 
 const Staff = () => {
-  const navigate = useNavigate();
+  const [returnStaffPage, setReturnStaffPage] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
+  const [tableColumns, setTableColumns] = useState([
+    "Id",
+    "Name",
+    "Phone Number",
+    "Role",
+    "Permission",
+    "",
+  ]);
+  const [tableDatas, setTableDatas] = useState([]);
   const [name, setName] = useState();
   const [phno, setPhno] = useState();
   const [permissions, setPermissions] = useState();
   const [loading, setLoading] = useState(false);
+
+  // Fetch staff data
+  useEffect(async () => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const datas = await axios.post(
+      "https://ecommerceapi.nksoftwarehouse.com/Account/UserList",
+      { token }
+    );
+    const users = datas.data;
+    if (users.RespCode === "W0003") {
+      Notify.failure("Invalid token. Please login again");
+      return;
+    }
+    users.map((user) => console.log(user));
+  }, [axios]);
 
   const toggleHandler = () => {
     setShowDialog((currentState) => !currentState);
@@ -109,21 +139,23 @@ const Staff = () => {
             toggleDialog={toggleHandler}
           />
         )}
-        <MUIDataTable
-          title={"Staffs"}
-          data={data}
-          columns={columns}
-          options={{
-            onRowClick: editHandler,
-          }}
-        />
+        {returnStaffPage ? (
+          <MUIDataTable
+            title={"Staffs"}
+            data={data}
+            columns={columns}
+            options={{
+              onRowClick: editHandler,
+            }}
+          />
+        ) : (
+          <CreateForm formType="create_staff" headerText="Create Staff" />
+        )}
         <div
           className="staff_addIcon"
-          onClick={() => navigate("/admin/create-staff")}
+          onClick={() => setReturnStaffPage((currentState) => !currentState)}
         >
-          <Fab aria-label="add">
-            <Add />
-          </Fab>
+          <Fab aria-label="add">{returnStaffPage ? <Add /> : <Close />}</Fab>
         </div>
       </>
     );

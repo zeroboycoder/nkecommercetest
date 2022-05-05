@@ -1,78 +1,82 @@
 .CreateForm {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .CreateForm_form {
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 600px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.CreateForm_form {
+  position: relative;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, 15%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+}
+
+.CreateForm_productForm {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  margin-top: 16px;
+}
+
+.CreateForm_title {
+  font-size: 40px;
+}
+
+.CreateForm_inputGp {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 25px 0;
+}
+
+.CreateForm_inputGp p {
+  width: 150px;
+}
+
+@media screen and (max-width: 768px) {
+  .CreateForm_form,
+  .CreateForm_productForm {
+    width: 70%;
   }
 
-  .CreateForm_productForm{
-    position: relative;
-    left: 50%;
-    transform: translate(-50%,0%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 600px;
-    margin-top: 16px;
-  }
-  
   .CreateForm_title {
-    font-size: 40px;
+    font-size: 34px;
   }
-  
+
   .CreateForm_inputGp {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin: 25px 0;
+    flex-direction: column;
+    align-items: unset;
+    margin: 16px 0;
   }
-  
+
+  .CreateForm_inputGp:last-of-type {
+    margin-top: 0;
+  }
+
   .CreateForm_inputGp p {
-    width: 150px;
+    margin-bottom: 10px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .CreateForm_form, .CreateForm_productForm {
-      width: 70%;
-    }
-  
-    .CreateForm_title {
-      font-size: 34px;
-    }
-  
-    .CreateForm_inputGp {
-      flex-direction: column;
-      align-items: unset;
-      margin: 16px 0;
-    }
-  
-    .CreateForm_inputGp:last-of-type {
-      margin-top: 0;
-    }
-  
-    .CreateForm_inputGp p {
-      margin-bottom: 10px;
-    }
+}
+
+@media screen and (max-width: 480px) {
+  .CreateForm_form,
+  .CreateForm_productForm {
+    width: 85%;
   }
-  
-  @media screen and (max-width: 480px) {
-    .CreateForm_form, .CreateForm_productForm {
-      width: 85%;
-    }
-  
-    .CreateForm_title {
-      font-size: 28px;
-    }
+
+  .CreateForm_form {
+    transform: translate(-50%, 0%);
   }
-  
+
+  .CreateForm_title {
+    font-size: 28px;
+  }
+}
