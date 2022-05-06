@@ -6,7 +6,7 @@ const theme = createTheme({
       main: "#0E185F",
     },
     secondary: {
-      main: localStorage.getItem("color"),
+      main: "#FF8AAE",
     },
   },
 });
