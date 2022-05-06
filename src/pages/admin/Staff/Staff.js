@@ -21,6 +21,7 @@ const Staff = () => {
     "Id",
     "Name",
     "Phone Number",
+    "Email",
     "Role",
     "Permission",
     "",
@@ -33,6 +34,7 @@ const Staff = () => {
 
   // Fetch staff data
   useEffect(async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     console.log(token);
     const datas = await axios.post(
@@ -44,7 +46,36 @@ const Staff = () => {
       Notify.failure("Invalid token. Please login again");
       return;
     }
-    users.map((user) => console.log(user));
+    let tempArr = [];
+    users.map((user) => {
+      const userPermissionsArr = [];
+      if (user.CreatePermission === "True") {
+        userPermissionsArr.push("Create");
+      }
+      if (user.UpdatePermission === "True") {
+        userPermissionsArr.push("Update");
+      }
+      if (user.DeletePermission === "True") {
+        userPermissionsArr.push("Delete");
+      }
+      if (user.CheckOrderPermission === "True") {
+        userPermissionsArr.push("Order");
+      }
+      const userPermissions = userPermissionsArr.join(", ");
+      tempArr = [
+        ...tempArr,
+        [
+          user.Id,
+          user.UserName,
+          user.PhoneNumber,
+          user.Email ? user.Email : "-",
+          user.Role,
+          userPermissions,
+        ],
+      ];
+    });
+    setTableDatas(tempArr);
+    setLoading(false);
   }, [axios]);
 
   const toggleHandler = () => {
@@ -69,7 +100,8 @@ const Staff = () => {
   };
 
   // Datas for MUI Data Table
-  const columns = ["Name", "Phone Number", "Permission", ""];
+  // const columns = ["Name", "Phone Number", "Permission", ""];
+  const columns = tableColumns;
 
   const data = [
     [
@@ -142,7 +174,7 @@ const Staff = () => {
         {returnStaffPage ? (
           <MUIDataTable
             title={"Staffs"}
-            data={data}
+            data={tableDatas}
             columns={columns}
             options={{
               onRowClick: editHandler,
