@@ -1,6 +1,5 @@
 import React, { useCallback, useReducer } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -51,12 +50,10 @@ const Signin = (props) => {
   const submitHandler = async () => {
     try {
       const data = {
-        UserName: "Admin01",
-        Password: "admin@123",
+        UserName: state.uname,
+        Password: state.password,
       };
-      reduxDispatch(onLogin(data));
-      Notify.success("Successful login");
-      navigate("/admin/dashboard");
+      reduxDispatch(onLogin(data, navigate));
     } catch (error) {
       throw new Error(error);
     }
