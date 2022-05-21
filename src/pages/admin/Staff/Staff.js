@@ -14,7 +14,11 @@ import { useDispatch } from "react-redux";
 import "./Staff.css";
 import CreateForm from "../../../components/CreateForm/CreateForm";
 import Spinner from "../../../components/Spinner/Spinner";
-import { onCreateStaff } from "../../../redux/action/staff";
+import {
+  onCreateStaff,
+  onUpdateStaff,
+  onDeleteStaff,
+} from "../../../redux/action/staff";
 
 const Staff = () => {
   const dispatch = useDispatch();
@@ -30,6 +34,7 @@ const Staff = () => {
     "",
   ]);
   const [tableDatas, setTableDatas] = useState([]);
+  const [uid, setUid] = useState();
   const [name, setName] = useState();
   const [phno, setPhno] = useState();
   const [permissions, setPermissions] = useState();
@@ -90,7 +95,9 @@ const Staff = () => {
   }, [axios]);
 
   // Edit Staff Handler
+  // Fetch user data
   const editHandler = (data) => {
+    const userId = data[0];
     const name = data[1];
     const phno = data[2];
     const permissionsObj = data[5];
@@ -98,6 +105,7 @@ const Staff = () => {
     permissionsObj.split(",").map((permission) => {
       permissions[permission.toLowerCase().trim()] = true;
     });
+    setUid(userId);
     setName(name);
     setPhno(phno);
     setPermissions(permissions);
@@ -109,13 +117,17 @@ const Staff = () => {
   };
 
   const updateStaff = (data) => {
-    console.log(data);
+    dispatch(onUpdateStaff(data));
     toggleHandler();
   };
 
   // Delete Staff
-  const deleteHandler = (data) => {
-    console.log(data);
+  const deleteHandler = () => {
+    const data = {
+      Id: uid,
+      Token: localStorage.getItem("token"),
+    };
+    dispatch(onDeleteStaff(data));
   };
 
   const submitHandler = (datas) => {
@@ -134,7 +146,7 @@ const Staff = () => {
           <CreateForm
             formType="edit_staff"
             headerText="Edit Staff"
-            datas={{ name, phno, permissions }}
+            datas={{ uid, name, phno, permissions }}
             showDialog={showDialog}
             toggleDialog={toggleHandler}
             updateStaff={updateStaff}

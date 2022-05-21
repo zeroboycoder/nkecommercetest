@@ -148,9 +148,9 @@ export const CreateForm = ({
   };
 
   const submitHandler = () => {
-    let datas;
+    let data;
     if (formType === "create_staff") {
-      datas = {
+      data = {
         UserName: state.uname,
         PhoneNumber: state.phno,
         Password: state.pword,
@@ -161,13 +161,23 @@ export const CreateForm = ({
         BusinessName: localStorage.getItem("bname"),
         Token: localStorage.getItem("token"),
       };
-      onPressed(datas);
+      onPressed(data);
       cancleHandler();
     }
     if (formType === "edit_staff") {
-      datas = {};
+      data = {
+        Id: datas.uid,
+        UserName: state.uname,
+        PhoneNumber: state.phno,
+        Password: state.pword,
+        CreatePermission: state.permission.create ? "True" : "False",
+        UpdatePermission: state.permission.update ? "True" : "False",
+        DeletePermission: state.permission.delete ? "True" : "False",
+        CheckOrderPermission: state.permission.order ? "True" : "False",
+        Token: localStorage.getItem("token"),
+      };
+      updateStaff(data);
     }
-    // console.log(datas);
   };
 
   const canClickCreate = () => {
