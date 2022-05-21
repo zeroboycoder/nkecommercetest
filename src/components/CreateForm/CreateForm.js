@@ -11,7 +11,6 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
-import { useSelector } from "react-redux";
 
 import Input from "../Input/Input";
 import "./CreateForm.css";
@@ -59,8 +58,9 @@ export const CreateForm = ({
   datas,
   buttonText,
   toggleDialog,
+  updateStaff,
+  onPressed,
 }) => {
-  // const user = useSelector((store) => store.auth.user);
   const bname = localStorage.getItem("bname");
   const [state, dispatch] = useReducer(reducer, {
     // create staff
@@ -148,8 +148,26 @@ export const CreateForm = ({
   };
 
   const submitHandler = () => {
-    const datas = { ...state };
-    console.log(datas);
+    let datas;
+    if (formType === "create_staff") {
+      datas = {
+        UserName: state.uname,
+        PhoneNumber: state.phno,
+        Password: state.pword,
+        CreatePermission: state.permission.create ? "True" : "False",
+        UpdatePermission: state.permission.update ? "True" : "False",
+        DeletePermission: state.permission.delete ? "True" : "False",
+        CheckOrderPermission: state.permission.order ? "True" : "False",
+        BusinessName: localStorage.getItem("bname"),
+        Token: localStorage.getItem("token"),
+      };
+      onPressed(datas);
+      cancleHandler();
+    }
+    if (formType === "edit_staff") {
+      datas = {};
+    }
+    // console.log(datas);
   };
 
   const canClickCreate = () => {
@@ -250,7 +268,7 @@ export const CreateForm = ({
 
       <DialogActions>
         <Button onClick={toggleDialog}>Cancle</Button>
-        <Button onClick={toggleDialog} autoFocus>
+        <Button onClick={submitHandler} autoFocus>
           Update
         </Button>
       </DialogActions>
@@ -335,13 +353,7 @@ export const CreateForm = ({
       {formType === "edit_staff" && editDialogForm}
       {formType !== "edit_staff" && (
         <div className="CreateForm">
-          <form
-            className={
-              formType !== "create_product"
-                ? "CreateForm_form"
-                : "CreateForm_productForm"
-            }
-          >
+          <form className={"CreateForm_form"}>
             {/* Form Title */}
             <Typography variant="h3" className="CreateForm_title">
               {headerText}
