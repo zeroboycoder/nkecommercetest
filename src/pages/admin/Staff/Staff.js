@@ -80,10 +80,16 @@ const Staff = () => {
           user.Role,
           userPermissions,
           [
-            <IconButton className="staff_icon" onClick={editHandler}>
+            <IconButton
+              className="staff_icon"
+              onClick={() => editHandler(user)}
+            >
               <ModeEditOutline className={"staff_editIcon"} />
             </IconButton>,
-            <IconButton className="staff_icon" onClick={deleteHandler}>
+            <IconButton
+              className="staff_icon"
+              onClick={() => deleteHandler(user)}
+            >
               <DeleteOutline className={"staff_deleteIcon"} />
             </IconButton>,
           ],
@@ -109,7 +115,6 @@ const Staff = () => {
     setName(name);
     setPhno(phno);
     setPermissions(permissions);
-    toggleHandler();
   };
 
   const toggleHandler = () => {
@@ -123,11 +128,13 @@ const Staff = () => {
 
   // Delete Staff
   const deleteHandler = () => {
-    const data = {
-      Id: uid,
-      Token: localStorage.getItem("token"),
-    };
-    dispatch(onDeleteStaff(data));
+    if (window.confirm("Are you sure to delete?")) {
+      const data = {
+        Id: uid,
+        Token: localStorage.getItem("token"),
+      };
+      dispatch(onDeleteStaff(data));
+    }
   };
 
   const submitHandler = (datas) => {
@@ -158,9 +165,9 @@ const Staff = () => {
             title={"Staffs"}
             data={tableDatas}
             columns={columns}
-            options={{
-              onRowClick: editHandler,
-            }}
+            // options={{
+            //   onRowClick: editHandler,
+            // }}
           />
         ) : (
           <CreateForm
